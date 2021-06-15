@@ -1,0 +1,39 @@
+<div class="form-row">
+    <form novalidate enctype="multipart/form-data">
+        <select class="form-select form-group col-md-10" [(ngModel)]="subject.id" name="subject" id="inputGroupSelect04"
+            aria-label="Example select with button addon" required="true">
+            <option [value]="undefined" disabled selected>--- Selecionar un profesor ---</option>
+            <option *ngFor="let teacher of teachers" [value]="teacher.id">{{teacher.nombre}}</option>
+
+        </select>
+        <br>
+        <button (click)="Consult();" class="btn btn-primary">Consultar asignaturas</button>
+    </form>
+    <br>
+    <div class="alert alert-danger" role="alert" *ngIf="showError">
+        {{errorMsg}}
+    </div>
+    <div *ngIf="showTable">
+        <h5 class="card-header" style="color:black">Asignaturas del docente: {{post[0]['profesor']['nombre']}}</h5>
+        <br>
+        <table id="teachers">
+            <thead>
+                <th>Asignatura</th>
+                <th>Curso</th>
+                <th>Estudiantes</th>
+            </thead>
+            <tr *ngFor="let datos of post;let i=index">
+                <td>{{datos.nombre}}</td>
+                <td>{{datos.curso.grado}} {{datos.curso.salon}}</td>
+                <td>
+            <tr *ngFor="let student of datos.estudiantes" style="align-items: center;">
+                <td>
+                    {{student.nombre}}
+                </td>
+            </tr>
+            </td>
+            </tr>
+
+        </table>
+    </div>
+</div>
